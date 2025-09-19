@@ -1,0 +1,142 @@
+
+###
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+  "role": "administrator",
+  "name": "zeduardu",
+  "email": "zeduardu@gmail.com",
+  "password": "123456"
+}
+
+###
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+  "role": "author",
+  "name": "fulano",
+  "email": "fulano@gmail.com",
+  "password": "123456"
+}
+
+###
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+    "email": "zeduardu@gmail.com",
+    "password": "123456"
+}
+
+{%
+  client.global.set("auth_token", response.body.access_token);
+%}
+
+###
+GET http://localhost:3000/auth/profile
+content-type: application/json
+Authorization: Bearer {{auth_token}}
+
+###
+POST http://localhost:3000/categories
+Content-Type: application/json
+authorization: Bearer {{auth_token}}
+
+{
+  "url": "arquitetura-de-software",
+  "name": "Arquitetura de Software",
+  "summary": "Arquitetura de Software"
+}
+
+###
+POST http://localhost:3000/categories
+Content-Type: application/json
+authorization: Bearer {{auth_token}}
+
+{
+  "url": "",
+  "name": "Tecnologia em geral",
+  "summary": ""
+}
+
+###
+GET http://localhost:3000/categories
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+###
+GET http://localhost:3000/users
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+###
+POST http://localhost:3000/posts
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "url": "como-criar-um-blog-com-node-js",
+  "title": "Como criar um blog com Node.js",
+  "summary": "Aprenda a criar um blog com Node.js",
+  "content": "Aprenda a criar um blog com Node.js",
+  "user_id": 1,
+  "category_ids": [2]
+}
+
+###
+POST http://localhost:3000/posts
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "url": "o-que-e-arquitetura-de-software",
+  "title": "O que é arquitetura de software",
+  "summary": "Aprendendo o básico sobre arquitetura de software",
+  "content": "Aprendendo o básico sobre arquitetura de software",
+  "user_id": 2,
+  "category_ids": [2, 1]
+}
+
+###
+GET http://localhost:3000/posts
+Content-Type: application/json
+authorization: Bearer {{auth_token}}
+
+###
+GET http://localhost:3000/posts/find-all-posts-to-posts-list-page
+Content-Type: application/json
+authorization: Bearer {{auth_token}}
+
+###
+GET http://localhost:3000/posts/briefly
+Content-Type: application/json  
+Authorization: Bearer {{auth_token}}
+
+###
+POST http://localhost:3000/comments
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "post_id": 1,
+  "user_id": 2,
+  "text": "Muito bom!"
+}
+
+###
+POST http://localhost:3000/comments
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "post_id": 1,
+  "user_id": 1,
+  "text": "Demais!!!"
+}
+
+###
+GET http://localhost:3000/comments
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
