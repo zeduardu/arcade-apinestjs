@@ -10,7 +10,8 @@ import { Comment } from './entities/comment.entity';
 @Injectable()
 export class CommentsService {
   constructor(
-    @InjectRepository(Comment) private readonly commentRepository: Repository<Comment>,
+    @InjectRepository(Comment)
+    private readonly commentRepository: Repository<Comment>,
     private readonly usersService: UsersService,
     private readonly postsService: PostsService,
   ) {}

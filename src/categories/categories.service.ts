@@ -41,7 +41,10 @@ export class CategoriesService {
   }
 
   async findByIds(ids: number[]): Promise<Category[]> {
-    return this.categoryRepository.createQueryBuilder().where('id IN (:...ids)', { ids: ids }).getMany();
+    return this.categoryRepository
+      .createQueryBuilder()
+      .where('id IN (:...ids)', { ids: ids })
+      .getMany();
   }
 
   async update(id: number, updateCategoryDto: UpdateCategoryDto) {

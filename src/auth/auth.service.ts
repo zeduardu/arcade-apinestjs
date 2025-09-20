@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { User } from '../users/entities/user.entity';
@@ -23,7 +27,10 @@ export class AuthService {
     return user;
   }
 
-  async login(email: string, password: string): Promise<{ access_token: string }> {
+  async login(
+    email: string,
+    password: string,
+  ): Promise<{ access_token: string }> {
     const user = await this.validateUser(email, password);
     const payload = { email: user.email, sub: user.id };
     const loginResult = {

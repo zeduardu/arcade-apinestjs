@@ -1,4 +1,14 @@
-import { Controller, Post, Body, HttpStatus, HttpCode, Get, UseGuards, Request, Res } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  HttpStatus,
+  HttpCode,
+  Get,
+  UseGuards,
+  Request,
+  Res,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { UsersService } from '../users/users.service';
@@ -14,25 +24,35 @@ export class AuthController {
 
   @HttpCode(HttpStatus.CREATED)
   @Post('register')
-  async register(@Body() createUserDto: CreateUserDto): Promise<{ role: string; name: string; email: string }> {
+  async register(
+    @Body() createUserDto: CreateUserDto,
+  ): Promise<{ role: string; name: string; email: string }> {
     const newUser = await this.userService.create(createUserDto);
     return { role: newUser.role, name: newUser.name, email: newUser.email };
   }
 
   @Post('login')
-  async login(@Body() loginDto: { email: string; password: string }, @Res() res: Response): Promise<void> {
+  async login(
+    @Body() loginDto: { email: string; password: string },
+    @Res() res: Response,
+  ): Promise<void> {
     try {
-      const loginResult = await this.authService.login(loginDto.email, loginDto.password);
+      const loginResult = await this.authService.login(
+        loginDto.email,
+        loginDto.password,
+      );
       res.status(HttpStatus.ACCEPTED).json(loginResult);
     } catch (error) {
-      res.status(HttpStatus.UNAUTHORIZED).json({ message: `Credenciais inválidas. Erro: ${error}` });
+      res
+        .status(HttpStatus.UNAUTHORIZED)
+        .json({ message: `Credenciais inválidas. Erro: ${error}` });
     }
   }
 
   @UseGuards(JwtAuthGuard)
   @HttpCode(HttpStatus.OK)
   @Get('profile')
-  async profile(@Request() req) {
+  profile(@Request() req: { user: { userId: string; email: string } }) {
     return req.user;
   }
 }
