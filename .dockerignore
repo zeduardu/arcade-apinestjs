@@ -1,0 +1,33 @@
+# Git
+.git
+.gitignore
+
+# Docker
+Dockerfile
+.dockerignore
+
+# Node
+node_modules
+npm-debug.log
+yarn-error.log
+
+# Build output
+dist
+
+# Config files
+.editorconfig
+.prettierrc
+app.http
+
+# Documentation
+README.md
+
+# Tests
+test
+*.spec.ts
+
+# IDE specific
+.vscode
+
+# User uploads
+public/uploads
